@@ -1,6 +1,24 @@
 version: '3.8'
 
 services:
+  # Application
+  ingestion-service:
+    build: .
+    container_name: ingestion-service
+    depends_on:
+      - postgres
+      - kafka
+      - opensearch
+    ports:
+      - "8080:8080"
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:postgresql://postgres:5432/ingestion_db
+      SPRING_DATASOURCE_USERNAME: user
+      SPRING_DATASOURCE_PASSWORD: password
+      SPRING_KAFKA_BOOTSTRAP_SERVERS: kafka:29092
+      OPENSEARCH_HOST: opensearch
+      OPENSEARCH_PORT: 9200
+
   # Postgres
   postgres:
     image: postgres:15-alpine
