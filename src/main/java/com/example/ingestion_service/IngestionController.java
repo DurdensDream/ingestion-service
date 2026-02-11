@@ -52,7 +52,7 @@ public class IngestionController {
         } catch (Exception e) {
             return ResponseEntity.internalServerError().body("Error: " + e.getMessage());
         }
-        return ResponseEntity.ok("File accepted for processing");
+        return ResponseEntity.accepted().body("File accepted for processing");
     }
 
     @GetMapping("/search")
